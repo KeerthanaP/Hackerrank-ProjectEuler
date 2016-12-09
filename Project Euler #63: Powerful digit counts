@@ -1,0 +1,31 @@
+__author__ = "Keerthana Prabhakaran"
+__version__ = "1.0.1"
+__maintainer__ = "Keerthana Prabhakaran"
+__email__ = "keerthi.pkrn@gmail.com"
+__status__ = "Accepted"
+
+
+import math
+
+N=int(raw_input())
+
+def ceil(n):
+    return -(-n//1.0)
+
+def nthroot(n):
+    return math.pow(n,1/float(N))
+
+def nthpow(n):
+    return math.pow(n,float(N))
+
+def isperfect(a):
+    if int(a) == a:
+        return True
+    return False
+
+min = math.pow(10,N-1)
+max = math.pow(10,N)-1
+start = int(ceil(nthroot(min)))
+end = int(nthroot(max))
+for i in range(start,end+1):
+    print i**N
