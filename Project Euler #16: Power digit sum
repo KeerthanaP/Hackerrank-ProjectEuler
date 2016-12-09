@@ -1,0 +1,36 @@
+/*
+* author - Keerthana Prabhakaran
+* email  - keerthi.pkrn@gmail.com
+*/
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        //BigInteger bi1 = new BigInteger("2");
+        //int i =1000;
+        //System.out.println(bi1.pow(i) );
+        //big2 = big2.add(big.mod(BigInteger.valueOf((long) Math.pow(10,i))).divide(BigInteger.valueOf((long)Math.pow(10,i-1))));
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+            for (int j = 0; j < n; j++)
+            {
+                int x = s.nextInt();
+                BigInteger big = BigInteger.valueOf(2).pow(x);
+                String digits = big.toString();
+                int sum = 0;       
+                for(int i = 0; i < digits.length(); i++) {
+                    int digit = (int) (digits.charAt(i) - '0');
+                    sum = sum + digit;
+                }
+            
+                System.out.println(sum);
+            }
+    }
+}
