@@ -1,0 +1,38 @@
+//Author: Keerthana Prabhakaran
+//Project Euler #102: Triangle containment
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    static double area(double xa,double ya,double xb,double yb, double xc,double yc)
+        {
+        return Math.abs(((xa*(yb-yc))+(xb*(yc-ya))+(xc*(ya-yb)))/2.0);
+    }
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner s = new Scanner(System.in);
+        double n = s.nextDouble();
+        int count=0;
+        for(double i=0;i<n;i++)
+            {
+            double xa=s.nextDouble();
+            double ya=s.nextDouble();
+            double xb=s.nextDouble();
+            double yb=s.nextDouble();
+            double xc=s.nextDouble();
+            double yc=s.nextDouble();
+            double sa = area(xa,ya,xb,yb,xc,yc);
+            double a = area(xa,ya,xb,yb,0,0) + area(xa,ya,0,0,xc,yc) + area(0,0,xb,yb,xc,yc);
+            if(sa==a)
+                count++;
+            
+        }
+        System.out.println(count);
+    }
+}
+
