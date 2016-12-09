@@ -1,0 +1,25 @@
+// <author>Keerthana Prabhakaran</author>
+// <summary>Project Euler #5: Smallest multiple</summary>
+
+using System;
+class Program
+    {
+        static int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
+        static int lcm( int a, int b) { return (a * b) / gcd(a,b); }
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < n; i++)
+            {
+                int x = Convert.ToInt32(Console.ReadLine());
+                int myLcm = 1;
+                for (int j = 2; j <= x; j++)
+                {
+                    myLcm = lcm(myLcm, j);
+                }
+                Console.WriteLine(myLcm);
+            }
+
+            Console.ReadKey();
+        }
+    }
