@@ -1,0 +1,53 @@
+// <author>Keerthana Prabhakaran</author>
+// <summary>Project Euler #7: 10001st prime</summary>
+
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+class Program
+    {
+
+        public static int[] ESieve(int upperLimit)
+        {
+            int sieveBound = (int)(upperLimit - 1) / 2;
+            int upperSqrt = ((int)Math.Sqrt(upperLimit) - 1) / 2;
+
+            BitArray PrimeBits = new BitArray(sieveBound + 1, true);
+
+            for (int i = 1; i <= upperSqrt; i++)
+            {
+                if (PrimeBits.Get(i))
+                {
+                    for (int j = i * 2 * (i + 1); j <= sieveBound; j += 2 * i + 1)
+                    {
+                        PrimeBits.Set(j, false);
+                    }
+                }
+            }
+
+            List<int> numbers = new List<int>((int)(upperLimit / (Math.Log(upperLimit) - 1.08366)));
+            numbers.Add(2);
+
+            for (int i = 1; i <= sieveBound; i++)
+            {
+                if (PrimeBits.Get(i))
+                {
+                    numbers.Add(2 * i + 1);
+                }
+            }
+
+            return numbers.ToArray();
+        }
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] arr = ESieve(1000000);
+            List<int> list = arr.ToList<int>();
+            for(int i=0;i<n;i++){
+                Console.WriteLine( arr.ElementAt(Convert.ToInt32(Console.ReadLine())-1));
+            }
+            
+            Console.ReadKey();
+        }
+    }
