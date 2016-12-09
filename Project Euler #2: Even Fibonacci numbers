@@ -3,27 +3,27 @@
 
 using System;
 class Program
+{
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        long n=Convert.ToInt64(Console.ReadLine());
+        for(int i=0;i<n;i++)
         {
-            long n=Convert.ToInt64(Console.ReadLine());
-            for(int i=0;i<n;i++)
+            long x=Convert.ToInt64(Console.ReadLine());
+            long sum = 0;
+            long a=0, b=1;
+            for (int  c = 1 ; c <= x ; c++ )
             {
-                long x=Convert.ToInt64(Console.ReadLine());
-                long sum = 0;
-                long a=0, b=1;
-                for (int  c = 1 ; c <= x ; c++ )
-                {
-                    long y = a+b;
-                    if (y > x)
-                        break;
-                    if(y%2==0)
+                long y = a+b;
+                if (y > x)
+                    break;
+                if(y%2==0)
                     sum += y;
-                    a=b;
-                    b=y;
-                }
-                Console.WriteLine(sum);
+                 a=b;
+                 b=y;
             }
-            Console.ReadKey();
+            Console.WriteLine(sum);
         }
+        Console.ReadKey();
     }
+}
