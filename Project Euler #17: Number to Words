@@ -1,0 +1,40 @@
+__author__ = "Keerthana Prabhakaran"
+__version__ = "1.0.1"
+__maintainer__ = "Keerthana Prabhakaran"
+__email__ = "keerthi.pkrn@gmail.com"
+__status__ = "Accepted"
+
+
+ones=["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" ]
+tensele=["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+tens=["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" ]
+rest=["", "", "Thousand", "Million", "Billion"]
+hundred="Hundred"
+t=int(raw_input())
+for i in range(0,t):
+        strn = raw_input()
+        splitn = 3
+        strn = strn[::-1]
+        splitsep=[strn[i:i+splitn] for i in range(0, len(strn), splitn)]
+        #print splitsep
+        final = ""
+        i = 1
+        for x in splitsep:
+                if x=="0":
+                        final = "Zero"
+                        break
+                wordx = ones[int(x[0])]
+
+                if len(x) > 1:
+                        if x[1]=="1":
+                                wordx = tensele[int(x[0])]
+                        elif x[1]!="0":
+                                wordx = " ".join([tens[int(x[1])], wordx]).strip()
+
+                        if len(x) > 2 and x[2]!="0":
+                                wordx = " ".join([ones[int(x[2])],hundred,wordx]).strip()
+                if int(x)!=0:
+                        final = " ".join([wordx, rest[i],final]).strip()
+                i = i + 1
+        print final
+
