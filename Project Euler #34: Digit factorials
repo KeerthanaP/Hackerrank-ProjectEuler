@@ -1,0 +1,36 @@
+// <author>Keerthana Prabhakaran</author>
+// <summary>Project Euler #34: Digit factorials</summary>
+
+using System;
+using System.Collections.Generic;
+class Program
+    {
+        static long Factorial(long n)
+        {
+            if (n == 0)
+                return 1;
+            return  n * Factorial(n - 1);
+        }
+        static void Main(string[] args)
+        {
+            long n = Convert.ToInt32(Console.ReadLine());
+            long sum1 = 0;
+            for (long i = 10; i < n; i++)
+            {
+                long n1 = i;
+                long sum = 0;
+                while (n1 > 0)
+                {
+                    long n2 = n1 % 10;
+                    sum += Factorial(n2);
+                    n1 = n1 / 10;
+                }
+                if (sum % i == 0)
+                    sum1 += i;
+            }
+            Console.WriteLine(sum1);
+            Console.ReadKey();
+        }
+    }
+
+
