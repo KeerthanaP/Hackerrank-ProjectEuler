@@ -1,0 +1,19 @@
+import math
+#sum of digits in n
+def sumofn(n):
+    sum  = 0
+    while n > 0:
+        x = n%10
+        n=n/10
+        sum = sum+x
+        
+    return sum
+n= int(raw_input())
+max = 0
+for a in range(int(n/2),n):
+    for b in range(int(n/2),n):
+        p =a**b
+        x = sumofn(p)
+        if x > max:
+            max = x
+print max
