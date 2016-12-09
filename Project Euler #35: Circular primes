@@ -1,0 +1,96 @@
+// <author>Keerthana Prabhakaran</author>
+// <summary>Project Euler #35: Circular primes</summary>
+
+using System;
+using System.Collections.Generic;
+using System.Collections;
+
+    class Program
+    {
+        public static int[] ESieve(int upperLimit)
+        {
+            int sieveBound = (int)(upperLimit - 1) / 2;
+            int upperSqrt = ((int)Math.Sqrt(upperLimit) - 1) / 2;
+
+            BitArray PrimeBits = new BitArray(sieveBound + 1, true);
+
+            for (int i = 1; i <= upperSqrt; i++)
+            {
+                if (PrimeBits.Get(i))
+                {
+                    for (int j = i * 2 * (i + 1); j <= sieveBound; j += 2 * i + 1)
+                    {
+                        PrimeBits.Set(j, false);
+                    }
+                }
+            }
+
+            List<int> numbers = new List<int>((int)(upperLimit / (Math.Log(upperLimit) - 1.08366)));
+            numbers.Add(2);
+
+            for (int i = 1; i <= sieveBound; i++)
+            {
+                if (PrimeBits.Get(i))
+                {
+                    string s = Convert.ToString(2 * i + 1, 10);
+                    char[] s1 = s.ToCharArray();
+                    if (((2*i+1)>10 )&&( s.Contains("2") || s.Contains("5") || s.Contains("4") || s.Contains("6") || s.Contains("8") || s.Contains("0")))
+                    {
+                        continue;
+                    }
+                    numbers.Add(2 * i + 1);
+                }
+            }
+
+            return numbers.ToArray();
+        }
+        private static bool Check_Prime(int number)
+        {
+            int i;
+            for (i = 2; i <= number - 1; i++)
+            {
+                if (number % i == 0)
+                {
+                    return false;
+                }
+            }
+            if (i == number)
+            {
+                return true;
+            }
+            return false;
+        }   
+        static void Main(string[] args)
+        {
+            int[] prime = ESieve(Convert.ToInt32(Console.ReadLine()));
+            int sum = 0;
+            foreach (int i in prime)
+            {
+                int j=0;
+                bool yes = true;
+                //Console.WriteLine(i);
+                int k = i;
+                while (i>10 &&yes)
+                {
+                    char[] s = Convert.ToString(k, 10).ToCharArray();
+                    char c = s[0];
+                    s[0] = ' ';
+                    string s1 = new string(s);
+                    s1.TrimStart();
+                    s1 = s1 +  c;
+                    j = Convert.ToInt32(s1);
+                    if(!Check_Prime(j))
+                        yes=false;
+                    if(j==i)
+                        break;
+                    k = j;
+                }
+                if(yes){
+                sum += i;
+                }
+
+            }
+            Console.WriteLine(sum);
+            Console.ReadKey();
+        }
+    }
