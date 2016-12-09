@@ -1,0 +1,134 @@
+// <author>Keerthana Prabhakaran</author>
+// <summary>Project Euler #37: Truncatable primes</summary>
+
+using System;
+using System.Collections.Generic;
+using System.Collections;
+    
+    class Program
+    {
+        private static int Reverse(int n)
+        {
+            int left = n;
+            int rev = 0;
+            int r = 0;
+            while (left > 0)
+            {
+                r = left % 10;
+                rev = rev * 10 + r;
+                left = left / 10;  //left = Math.floor(left / 10); 
+            }
+
+            return rev;
+        }
+        public static int[] ESieve(int upperLimit)
+        {
+            int sieveBound = (int)(upperLimit - 1) / 2;
+            int upperSqrt = ((int)Math.Sqrt(upperLimit) - 1) / 2;
+
+            BitArray PrimeBits = new BitArray(sieveBound + 1, true);
+
+            for (int i = 1; i <= upperSqrt; i++)
+            {
+                if (PrimeBits.Get(i))
+                {
+                    for (int j = i * 2 * (i + 1); j <= sieveBound; j += 2 * i + 1)
+                    {
+                        PrimeBits.Set(j, false);
+                    }
+                }
+            }
+
+            List<int> numbers = new List<int>((int)(upperLimit / (Math.Log(upperLimit) - 1.08366)));
+            numbers.Add(2);
+
+            for (int i = 1; i <= sieveBound; i++)
+            {
+                if (PrimeBits.Get(i))
+                {
+                    string s = Convert.ToString(2 * i + 1,10);
+                    char[] s1 = s.ToCharArray();
+                    if ((s1[0] == '9' || s1[s.Length - 1] == '9'))
+                        continue;
+                    if ((s1[0] == '1' || s1[s.Length - 1] == '1'))
+                        continue;
+                    if (s.Contains("4") || s.Contains("6") || s.Contains("8") || s.Contains("0"))
+                    {
+                            continue;    
+                    }
+                    if(s.Contains("2"))
+                    {
+                        if((2*i+1)>100)
+                            continue;
+                    }
+                    //if(!numbers.Contains(Reverse(2*i+1)))
+                    numbers.Add(2 * i + 1);
+
+                }
+            }
+
+            return numbers.ToArray();
+        }
+        private static bool Check_Prime(int number)
+       {
+            int i;
+            for (i = 2; i <= number - 1; i++)
+            {
+                if (number % i == 0)
+                {
+                    return false;
+                }
+            }
+            if (i == number)
+            {
+                return true;
+            }
+            return false;
+        }
+        static void Main(string[] args)
+        {
+            int n =Convert.ToInt32(Console.ReadLine());
+            int[] v = ESieve(n);
+            double sum=0;
+            foreach (int i in v)
+            {
+                string s = Convert.ToString(i, 10);
+                int j = 1;
+                bool yes = true;
+                j = 10;
+
+                int l = i;
+
+                while (l / 10 != 0 && yes)
+                {
+                    l = i / j;
+                    if (!Check_Prime(l))
+                        yes = false;
+                    j = j * 10;
+                }
+                int k = Reverse(i);
+                if (i == k)
+                     goto A;
+                j = 10;
+                l = k;
+
+                while (l / 10 != 0 && yes)
+                {
+                    l = k / j;
+                    l = Reverse(l);
+                    if (!Check_Prime(l))
+                        yes = false;
+                    j = j * 10;
+                }
+                A:
+                if (yes && i>9)
+                {
+                    sum += i;
+                }
+                
+            }
+            Console.WriteLine(sum);
+            Console.ReadKey();
+
+        }
+    }
