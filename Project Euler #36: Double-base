@@ -1,0 +1,71 @@
+// <author>Keerthana Prabhakaran</author>
+// <summary>Project Euler #36: Double-base</summary>
+
+ using System;
+using System.Collections.Generic;
+using System.IO;
+
+    class Program
+    {
+        static bool Palindrome(string str)
+        {
+            string revstr;
+            char[] tempstr = str.ToCharArray();
+            Array.Reverse(tempstr);
+            revstr = new string(tempstr);
+            bool caseignore = str.Equals(revstr, StringComparison.OrdinalIgnoreCase);
+            return caseignore;
+        }
+        public static string DecimalToArbitrarySystem(long decimalNumber, int radix)
+        {
+            const int BitsInLong = 64;
+            const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            if (radix < 2 || radix > Digits.Length)
+                throw new ArgumentException("The radix must be >= 2 and <= " +
+                    Digits.Length.ToString());
+
+            if (decimalNumber == 0)
+                return "0";
+
+            int index = BitsInLong - 1;
+            long currentNumber = Math.Abs(decimalNumber);
+            char[] charArray = new char[BitsInLong];
+
+            while (currentNumber != 0)
+            {
+                int remainder = (int)(currentNumber % radix);
+                charArray[index--] = Digits[remainder];
+                currentNumber = currentNumber / radix;
+            }
+
+            string result = new String(charArray, index + 1, BitsInLong - index - 1);
+            if (decimalNumber < 0)
+            {
+                result = "-" + result;
+            }
+
+            return result;
+        }
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            char[] sp = { ' ' };
+            string[] s0 = s.Split(sp);
+            int n = Convert.ToInt32(s0[0]);
+            int k = Convert.ToInt32(s0[1]);
+            int sum = 0;
+            for (int i = 0; i < n; i++)
+            {
+                string s1 = Convert.ToString(i, 10);
+                string s2 = DecimalToArbitrarySystem(i, k);
+                if (Palindrome(s1) && Palindrome(s2))
+                {
+                    sum += i;
+                }
+            }
+   
+                Console.WriteLine(sum);
+            Console.ReadKey();
+        }
+    }
