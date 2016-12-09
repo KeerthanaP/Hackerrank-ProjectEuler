@@ -1,0 +1,15 @@
+__author__ = "Keerthana Prabhakaran"
+__version__ = "1.0.1"
+__maintainer__ = "Keerthana Prabhakaran"
+__email__ = "keerthi.pkrn@gmail.com"
+__status__ = "Accepted"
+
+import math
+def sum_of_squares(N):
+    return (N * (N + 1) * ((2*N) + 1)) / 6
+def squares_of_sum(N):
+    return math.pow(N*(N+1)/2,2)
+
+for i in range(0,int(raw_input())):
+    N=int(raw_input())
+    print int(abs(squares_of_sum(N)-sum_of_squares(N)))
